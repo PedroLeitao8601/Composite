@@ -1,115 +1,174 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Composite{
 
-
-    public interface Pedido {
+    public static interface Pedido {
         public double calcularPreco();
-        public String getNome();
+        public void exibir(int nivel);
         //pensar em que outros metodos e/ou atributos adicionar
     }
 
-    public class Pizza implements Pedido{
-        private String nome = "Pizza";
-        private double preco = 19.90;
+    public static class Colar implements Pedido{
+        private String nome = "Colar";
+        private double preco = 24.90;
 
         @Override 
         public double calcularPreco(){
             return preco;
         }
 
-        @Override 
-        public String getNome(){
-            return nome;
+        @Override
+        public void exibir(int nivel){
+            String ident = "\t".repeat(nivel);
+            System.out.println(ident + nome + " - R$ " + preco);
         }
     }
 
-    public class Hamburguer implements Pedido{
-        private String nome = "Hamburguer";
-        private  double preco = 12.90;
+    public static class Brincos implements Pedido{
+        private String nome = "Brincos";
+        private  double preco = 19.90;
 
         @Override 
         public double calcularPreco(){
             return preco;
         }
 
-        @Override 
-        public String getNome(){
-            return nome;
+        @Override
+        public void exibir(int nivel){
+            String ident = "\t".repeat(nivel);
+            System.out.println(ident + nome + " - R$ " + preco);
         }
     }
 
-    public class Batata implements Pedido{
-        private  String nome = "Batata";
-        private  double preco = 8.99;
+    public static class Anel implements Pedido{
+        private  String nome = "Anel";
+        private  double preco = 13.90;
 
         @Override 
         public double calcularPreco(){
             return preco;
         }
 
-        @Override 
-        public String getNome(){
-            return nome;
+        @Override
+        public void exibir(int nivel){
+            String ident = "\t".repeat(nivel);
+            System.out.println(ident + nome + " - R$ " + preco);
         }
     }
 
-    public class Refrigerante implements Pedido{
-        private  String nome = "Refrigerante";
-        private  double preco = 3.99;
+    public static class Pulseira implements Pedido{
+        private  String nome = "Pulseira";
+        private  double preco = 11.90;
 
         @Override 
         public double calcularPreco(){
             return preco;
         }
 
-        @Override 
-        public String getNome(){
-            return nome;
+        @Override
+        public void exibir(int nivel){
+            String ident = "\t".repeat(nivel);
+            System.out.println(ident + nome + " - R$ " + preco);
         }
     }
 
-    public class Combo implements Pedido{
-        private List<Pedido> combo = new ArrayList<>();
+    public static class Tiara implements Pedido{
+        private  String nome = "Tiara";
+        private  double preco = 17.90;
+        @Override 
+        public double calcularPreco(){
+            return preco;
+        }
 
-        private String nome = "Combo ";
-        private double preco = 0;
+        @Override
+        public void exibir(int nivel){
+            String ident = "\t".repeat(nivel);
+            System.out.println(ident + nome + " - R$ " + preco);
+        }
+    }
+
+    public static class Gargantilha implements Pedido{
+        private  String nome = "Pulseira";
+        private  double preco = 11.90;
 
         @Override 
         public double calcularPreco(){
-            int tam = combo.size();
+            return preco;
+        }
+
+        @Override
+        public void exibir(int nivel){
+            String ident = "\t".repeat(nivel);
+            System.out.println(ident + nome + " - R$ " + preco);
+        }
+    }
+    
+    public static class Pacote implements Pedido{
+        private ArrayList<Pedido> pacote = new ArrayList<>();
+
+        public String nome = "Kit de acessorios:";
+        
+        @Override 
+        public double calcularPreco(){
+            int tam = pacote.size();
+            double preco = 0;
 
             for (int i = 0 ; i < tam ; i++){
-                preco += combo.get(i).calcularPreco();
+                preco += pacote.get(i).calcularPreco();
             }
             return preco;
         }
 
-        @Override 
-        public String getNome(){
-            int tam = combo.size();
+        @Override
+        public void exibir(int nivel){
+            String ident = "\t".repeat(nivel);
+            System.out.println(ident + nome);
 
-            for (int i = 0 ; i < tam ; i++) {
-                if (i != combo.size() - 2){
-                    nome += combo.get(i).getNome() + ", ";
-                }
-                else if (i == tam - 1){
-                    nome += combo.get(i).getNome() + " e ";
-                }
-                else{
-                    nome += combo.get(i).getNome();
-                }
+            for(Pedido item: pacote){
+                item.exibir(nivel + 1);
             }
-            return nome;
+        }
+
+        public void add(Pedido item){
+            pacote.add(item);
+        }
+
+        public void remove(Pedido item){
+            pacote.remove(item);
         }
     }
 
 
 
     public static void main(String [] args) {
-        //aqui é onde o pedido vai ser feito (onde vem as entradas)
+        int nivel = 0;
 
-        System.out.println("ta indo");
+        Pacote kit_1 = new Pacote();
+        Pacote kit_2 = new Pacote();
+        Pacote kit_3 = new Pacote();
+        kit_1.nome = "Kit especial: ";
+
+        Brincos bri_1 = new Brincos();
+        Anel an_1 = new Anel();
+        Pulseira pul_1 = new Pulseira();
+        Colar col_1 = new Colar();
+        Gargantilha gar_1 = new Gargantilha();
+        Tiara tia_1 = new Tiara();
+        Tiara tia_2 = new Tiara();
+
+        kit_1.add(kit_2);
+        kit_1.add(kit_3);
+        kit_2.add(bri_1);
+        kit_2.add(an_1);
+        kit_2.add(pul_1);
+        kit_3.add(col_1);
+        kit_3.add(gar_1);
+        kit_3.add(tia_1);
+
+        kit_1.add(tia_2);
+
+        kit_1.exibir(nivel);
+        
+        System.out.printf("\n Preco total: R$ %.2f%n", kit_1.calcularPreco());
     }
 }
