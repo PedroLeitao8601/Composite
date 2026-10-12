@@ -5,7 +5,6 @@ public class Composite{
     public static interface Pedido {
         public double calcularPreco();
         public void exibir(int nivel);
-        //pensar em que outros metodos e/ou atributos adicionar
     }
 
     public static class Colar implements Pedido{
