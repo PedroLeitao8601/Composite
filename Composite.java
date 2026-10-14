@@ -9,10 +9,12 @@ public class Composite{
         public List<String> validar();
     }
 
+    @SuppressWarnings ("FieldMayBeFinal")
+    
     public static class Colar implements Pedido{
         private String nome = "Colar";
         private double preco = 24.90;
-        public double peso = 1.5;
+        private double peso = 1.5;
 
         @Override 
         public double calcularPreco(){
@@ -27,7 +29,8 @@ public class Composite{
         @Override
         public void exibir(int nivel){
             String ident = "\t".repeat(nivel);
-            System.out.println(ident + nome + " - R$ " + preco + " - Peso: " + peso);
+            System.out.println(ident + nome + " - R$ " + preco +
+                                " - Peso: " + peso);
         }
 
         @Override
@@ -35,6 +38,8 @@ public class Composite{
             return new ArrayList<>();
         }
     }
+
+    @SuppressWarnings ("FieldMayBeFinal")
 
     public static class Brincos implements Pedido{
         private String nome = "Brincos";
@@ -63,9 +68,11 @@ public class Composite{
         }
     }
 
+    @SuppressWarnings ("FieldMayBeFinal")
+
     public static class Anel implements Pedido{
-        private  String nome = "Anel";
-        private  double preco = 13.90;
+        private String nome = "Anel";
+        private double preco = 13.90;
         public double peso = 0.2;
 
         @Override 
@@ -89,6 +96,8 @@ public class Composite{
             return new ArrayList<>();
         }
     }
+
+    @SuppressWarnings ("FieldMayBeFinal")
 
     public static class Pulseira implements Pedido{
         private  String nome = "Pulseira";
@@ -117,6 +126,8 @@ public class Composite{
         }
     }
 
+    @SuppressWarnings ("FieldMayBeFinal")
+
     public static class Tiara implements Pedido{
         private  String nome = "Tiara";
         private  double preco = 17.90;
@@ -143,6 +154,8 @@ public class Composite{
             return new ArrayList<>();
         }
     }
+
+    @SuppressWarnings ("FieldMayBeFinal")
 
     public static class Gargantilha implements Pedido{
         private  String nome = "Gargantilha";
@@ -171,6 +184,8 @@ public class Composite{
         }
     }
     
+    @SuppressWarnings ("FieldMayBeFinal")
+
     public static class Pacote implements Pedido{
         private ArrayList<Pedido> pacote = new ArrayList<>();
         public String nome = "Kit de acessorios:";
@@ -234,6 +249,14 @@ public class Composite{
 
         public void remove(Pedido item){
             pacote.remove(item);
+        }
+
+        public void setPesoMax(double pesoMaximo){
+            pesoMax = pesoMaximo;
+        }
+        
+        public void setPrecoMin(double precoMinimo){
+            precoMin = precoMinimo;
         }
     }
 
